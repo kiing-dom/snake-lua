@@ -26,7 +26,7 @@ function love.update(dt)
 
     if timer >= speed then
         timer = 0
-    
+
         local head = {x = snake[1].x, y = snake[1].y}
         if direction == "up" then head.y = head.y - 1 end
         if direction == "down" then head.y = head.y + 1 end
@@ -40,6 +40,16 @@ function love.update(dt)
             food.y = love.math.random(0, gridHeight - 1)
         else
             table.remove(snake)
+        end
+
+        if head.y < 0 and direction == "up" then
+            head.y = gridHeight - 1
+        elseif head.y > gridHeight - 1 and direction == "down" then
+            head.y = 0
+        elseif head.x < 0 and direction == "left" then
+            head.x = gridWidth - 1
+        elseif head.x > gridWidth - 1 and direction == "right" then
+            head.x = 0
         end
     end
 end
